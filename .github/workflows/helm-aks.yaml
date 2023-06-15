@@ -32,7 +32,7 @@ jobs:
       - name: Deploy TO AKS Cluster
         run: |
             echo "Set context k8s"
-            az aks get-credentials --resource-group ${AZ_RESOURCE_GROUP} --name ${AZ_AKS_NAME}
+            az aks get-credentials --resource-group ${{inputs.AZ_RESOURCE_GROUP}} --name ${{inputs.AZ_AKS_NAME}}
             kubectl get node
 
             helm install my-cherry-chart buildchart/ \
