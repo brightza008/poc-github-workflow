@@ -25,4 +25,6 @@ jobs:
           helm version
       - name: Deploy TO AKS Cluster
         run: |
-            echo "poc"
+            echo "Set context k8s"
+            az aks get-credentials --resource-group adjusted-chamois-rg --name adjusted-chamois-aks
+            kubectl get node
