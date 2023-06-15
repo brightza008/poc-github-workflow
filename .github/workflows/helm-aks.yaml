@@ -2,7 +2,14 @@ name: helm-deploy
 
 on:
   workflow_call:
-    
+    inputs:
+        HELM_TEMPLATE_REPO:
+            required: true
+            type: string
+        HELM_TEMPLATE_BRANCH:
+            required: true
+            type: string 
+
 jobs:
   helm-deploy:
     runs-on: ubuntu-latest
@@ -10,8 +17,12 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
-            repository: brightza008/poc-helmchart@minikube
+            repository: ${{inputs.HELM_TEMPLATE_REPO}} #brightza008/poc-helmchart@minikube
+            ref: ${{inputs.HELM_TEMPLATE_BRANCH}}
       - run: |
           ls -R
-          echo "Start Helm!!"
+          echo "Check env"
           helm version
+      - name: Deploy TO AKS Cluster
+        run: |
+            echo "poc"
