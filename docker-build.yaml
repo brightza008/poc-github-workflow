@@ -1,0 +1,33 @@
+name: docker-login-workflow-called
+
+on:
+  workflow_call:
+    inputs:
+      username:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
+
+jobs:
+  docker-build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: get properties
+        id: json_properties
+        run: |
+          echo "RELEASE_TAG=$(jq -r .version package.json)" >> $GITHUB_OUTPUT
+      - run: |
+          echo "Build tag==> ${{ steps.json_properties.outputs.RELEASE_TAG }}"
+      ## Build dockerfile ##
+      - name: Build the Docker image
+        run: |
+          docker logout 
+          docker login -u ${{ inputs.username }} -p ${{ secrets.token }}
+          docker build . --file Dockerfile --tag ${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
+          docker push ${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
+ 

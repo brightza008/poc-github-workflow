@@ -1,0 +1,39 @@
+name: docker-build-to-ACR
+
+on:
+  workflow_call:
+
+env:
+  AZ_CONTAINER_REGISTRY: bbbacr.azurecr.io
+  AZ_CONTAINER_NAME: bbbacr
+
+jobs:
+  docker-build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: get properties
+        id: json_properties
+        run: |
+          echo "RELEASE_TAG=$(jq -r .version package.json)" >> $GITHUB_OUTPUT
+      - run: |
+          echo "Build tag==> ${{ steps.json_properties.outputs.RELEASE_TAG }}"
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: start docker login
+        run: |
+          az acr login -n ${{env.AZ_CONTAINER_NAME}}
+
+      ## Build dockerfile ##
+      - name: Build the Docker image
+        run: |
+          docker build . --file Dockerfile --tag ${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
+          docker tag ${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }} ${{env.AZ_CONTAINER_NAME}}/${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
+          docker push ${{env.AZ_CONTAINER_NAME}}/${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
+ 
