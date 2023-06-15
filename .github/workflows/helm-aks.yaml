@@ -15,6 +15,9 @@ on:
         AZ_AKS_NAME:
             required: true
             type: string
+    secrets:
+        AZURE_CREDENTIALS:
+          required: true
 
 jobs:
   helm-deploy:
@@ -29,6 +32,11 @@ jobs:
           ls -R
           echo "Check env"
           helm version
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploy TO AKS Cluster
         run: |
             echo "Set context k8s"
