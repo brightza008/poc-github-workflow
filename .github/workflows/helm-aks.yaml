@@ -9,6 +9,12 @@ on:
         HELM_TEMPLATE_BRANCH:
             required: true
             type: string 
+        AZ_RESOURCE_GROUP:
+            required: true
+            type: string
+        AZ_AKS_NAME:
+            required: true
+            type: string
 
 jobs:
   helm-deploy:
@@ -26,7 +32,7 @@ jobs:
       - name: Deploy TO AKS Cluster
         run: |
             echo "Set context k8s"
-            az aks get-credentials --resource-group adjusted-chamois-rg --name adjusted-chamois-aks
+            az aks get-credentials --resource-group better-mite-rg --name better-mite-aks
             kubectl get node
 
             helm install my-cherry-chart buildchart/ \
