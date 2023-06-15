@@ -43,6 +43,6 @@ jobs:
             az aks get-credentials --resource-group ${{inputs.AZ_RESOURCE_GROUP}} --name ${{inputs.AZ_AKS_NAME}}
             kubectl get node
 
-            helm install my-cherry-chart buildchart/ \
+            helm upgrade --install my-cherry-chart buildchart/ \
             --values buildchart/values-global.yaml \
             --values buildchart/values-dev.yaml
