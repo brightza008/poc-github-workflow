@@ -2,10 +2,20 @@ name: docker-build-to-ACR
 
 on:
   workflow_call:
+    inputs:
+      AZ_CONTAINER_REGISTRY:
+        required: true
+        type: string
+      AZ_CONTAINER_NAME:
+        required: true
+        type: string
+    secrets:
+      AZURE_CREDENTIALS: 
+        required: true
 
-env:
-  AZ_CONTAINER_REGISTRY: bbbacr.azurecr.io
-  AZ_CONTAINER_NAME: bbbacr
+# env:
+#   AZ_CONTAINER_REGISTRY: bbbacr.azurecr.io
+#   AZ_CONTAINER_NAME: bbbacr
 
 jobs:
   docker-build-push:
