@@ -38,12 +38,12 @@ jobs:
           
       - name: start docker login
         run: |
-          az acr login -n ${{env.AZ_CONTAINER_NAME}}
+          az acr login -n ${{inputs.AZ_CONTAINER_NAME}}
 
       ## Build dockerfile ##
       - name: Build the Docker image
         run: |
           docker build . --file Dockerfile --tag ${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
-          docker tag ${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }} ${{env.AZ_CONTAINER_NAME}}/${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
-          docker push ${{env.AZ_CONTAINER_NAME}}/${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
+          docker tag ${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }} ${{inputs.AZ_CONTAINER_REGISTRY}}/${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
+          docker push ${{inputs.AZ_CONTAINER_REGISTRY}}/${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
  
