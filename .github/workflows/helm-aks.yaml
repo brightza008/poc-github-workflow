@@ -28,3 +28,7 @@ jobs:
             echo "Set context k8s"
             az aks get-credentials --resource-group adjusted-chamois-rg --name adjusted-chamois-aks
             kubectl get node
+
+            helm install my-cherry-chart buildchart/ \
+            --values buildchart/values-global.yaml \
+            --values buildchart/values-dev.yaml
