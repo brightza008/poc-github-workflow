@@ -31,5 +31,5 @@ jobs:
           docker logout 
           docker login -u ${{ inputs.username }} -p ${{ secrets.token }}
           docker build . --file Dockerfile --tag ${{env.docker_hub_repo}}/${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
-          docker push ${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
+          docker push ${{env.docker_hub_repo}}/${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
  
