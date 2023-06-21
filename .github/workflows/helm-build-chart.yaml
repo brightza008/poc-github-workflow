@@ -37,7 +37,6 @@ jobs:
 
           #### Start Upload ####
           az storage blob upload \
-          --name ${{inputs.APP_NAME}}/ \
           --file "./${{inputs.APP_NAME}}-${{inputs.APP_VERSION}}.tgz" \
           --container-name ${{inputs.AZURE_CONTAINER_NAME}} \
           --account-name ${{inputs.AZURE_STORAGE_ACC_NAME}} \
