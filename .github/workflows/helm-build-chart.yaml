@@ -42,7 +42,8 @@ jobs:
         run: | 
           #### Preparation Helm Template ####
           mv buildchart ./${{inputs.APP_NAME}}
-
+          ls -lrt
+          
           #### HELM ####
           helm dependency update ${{inputs.APP_NAME}}
           helm package \
