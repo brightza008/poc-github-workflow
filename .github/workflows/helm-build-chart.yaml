@@ -3,18 +3,24 @@ name: Helm build chart
 on:
   workflow_call:
     inputs:
+      HELM_TEMPLATE_REPO:
+        required: true
+        type: string
+      HELM_TEMPLATE_BRANCH:
+        required: true
+        type: string 
       AZURE_STORAGE_ACC_NAME:
-          required: true
-          type: string
+        required: true
+        type: string
       AZURE_CONTAINER_NAME:
-          required: true
-          type: string 
+        required: true
+        type: string 
       APP_NAME:
-          required: true
-          type: string
+        required: true
+        type: string
       APP_VERSION:
-          required: true
-          type: string
+        required: true
+        type: string
 
 jobs:
   run-helm:
@@ -23,6 +29,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          repository: ${{inputs.HELM_TEMPLATE_REPO}} #brightza008/poc-helmchart@minikube
+          ref: ${{inputs.HELM_TEMPLATE_BRANCH}}
 
       - name: Azure login
         uses: azure/login@v1
@@ -31,6 +40,9 @@ jobs:
       
       - name: helm build chart
         run: | 
+          #### Preparation Helm Template ####
+          mv buildchart ./${{inputs.APP_NAME}}
+
           #### HELM ####
           helm dependency update ${{inputs.APP_NAME}}
           helm package ./${{inputs.APP_NAME}}
