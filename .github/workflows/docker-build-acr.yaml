@@ -16,11 +16,14 @@ on:
     outputs:
       firstword:
         description: "The first output string"
-        value: ${{ jobs.docker-build-push.outputs.RELEASE_TAG }}
+        value: ${{ jobs.docker-build-push.outputs.output1 }}
 
 jobs:
   docker-build-push:
     runs-on: ubuntu-latest
+    # Map the job outputs to step outputs
+    outputs:
+      output1: ${{ steps.json_properties.outputs.RELEASE_TAG }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
