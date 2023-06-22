@@ -14,7 +14,7 @@ on:
         required: true
     # Map the workflow outputs to job outputs
     outputs:
-      APP_VERSION:
+      PACKAGE_VERSION:
         description: "The first output string"
         value: ${{ jobs.docker-build-push.outputs.output1 }}
 
