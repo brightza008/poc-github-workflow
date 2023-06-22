@@ -45,7 +45,10 @@ jobs:
 
           #### HELM ####
           helm dependency update ${{inputs.APP_NAME}}
-          helm package ./${{inputs.APP_NAME}}
+          helm package \
+            --app-version ${{inputs.APP_VERSION}} \
+            --version ${{inputs.APP_VERSION}} \
+            ./${{inputs.APP_NAME}}
 
           #### Start Upload ####
           az storage blob upload \
