@@ -12,10 +12,11 @@ on:
     secrets:
       AZURE_CREDENTIALS: 
         required: true
-
-# env:
-#   AZ_CONTAINER_REGISTRY: bbbacr.azurecr.io
-#   AZ_CONTAINER_NAME: bbbacr
+    # Map the workflow outputs to job outputs
+    outputs:
+      firstword:
+        description: "The first output string"
+        value: ${{ jobs.docker-build-push.outputs.RELEASE_TAG }}
 
 jobs:
   docker-build-push:
