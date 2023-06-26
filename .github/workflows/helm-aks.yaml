@@ -15,6 +15,12 @@ on:
         AZ_AKS_NAME:
             required: true
             type: string
+        APP_NAME:
+          required: true
+          type: string
+        APP_VERSION:
+          required: true
+          type: string
     secrets:
         AZURE_CREDENTIALS:
           required: true
@@ -46,6 +52,6 @@ jobs:
             helm repo add azblob https://muzikzzacc.blob.core.windows.net/charts
             helm repo update
 
-            helm upgrade --install my-cherry-chart buildchart/ \
-            --values buildchart/values-global.yaml \
-            --values buildchart/values-dev.yaml
+            helm upgrade --install my-cherry-chart ${{inputs.APP_NAME}}/ \
+            --values ${{inputs.APP_NAME}}/values-global.yaml \
+            --values ${{inputs.APP_NAME}}/values-dev.yaml
