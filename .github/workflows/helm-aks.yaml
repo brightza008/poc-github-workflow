@@ -43,6 +43,9 @@ jobs:
             az aks get-credentials --resource-group ${{inputs.AZ_RESOURCE_GROUP}} --name ${{inputs.AZ_AKS_NAME}}
             kubectl get node
 
+            helm repo add azblob https://muzikzzacc.blob.core.windows.net/charts
+            helm3 repo update
+
             helm upgrade --install my-cherry-chart buildchart/ \
             --values buildchart/values-global.yaml \
             --values buildchart/values-dev.yaml
