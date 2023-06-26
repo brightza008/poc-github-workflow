@@ -53,5 +53,5 @@ jobs:
             helm repo update
 
             helm upgrade --install my-cherry-chart azblob/${{inputs.APP_NAME}} \
-            --values ${{inputs.APP_NAME}}/values-global.yaml \
-            --values ${{inputs.APP_NAME}}/values-dev.yaml
+            --values values-global.yaml \
+            --values values-dev.yaml
