@@ -44,7 +44,7 @@ jobs:
             kubectl get node
 
             helm repo add azblob https://muzikzzacc.blob.core.windows.net/charts
-            helm3 repo update
+            helm repo update
 
             helm upgrade --install my-cherry-chart buildchart/ \
             --values buildchart/values-global.yaml \
