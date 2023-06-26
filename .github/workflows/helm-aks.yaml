@@ -53,3 +53,8 @@ jobs:
             helm repo update
 
             helm upgrade --install my-cherry-chart azblob/${{inputs.APP_NAME}} --values buildchart/values-global.yaml --values buildchart/values-dev.yaml 
+
+            kubectl rollout status deployment ${{inputs.APP_NAME}} 
+
+
+            
