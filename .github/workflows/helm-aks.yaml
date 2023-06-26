@@ -52,6 +52,4 @@ jobs:
             helm repo add azblob https://muzikzzacc.blob.core.windows.net/charts
             helm repo update
 
-            helm upgrade --install my-cherry-chart azblob/${{inputs.APP_NAME}} \
-            --values buildchart/values-global.yaml \ 
-            --values buildchart/values-dev.yaml 
+            helm upgrade --install my-cherry-chart azblob/${{inputs.APP_NAME}} --values buildchart/values-global.yaml --values buildchart/values-dev.yaml 
