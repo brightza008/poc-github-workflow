@@ -3,6 +3,9 @@ name: docker-build-to-ACR
 on:
   workflow_call:
     inputs:
+      APP_NAME:
+        required: true
+        type: string
       AZ_CONTAINER_REGISTRY:
         required: true
         type: string
@@ -47,7 +50,7 @@ jobs:
       ## Build dockerfile ##
       - name: Build the Docker image
         run: |
-          docker build . --file Dockerfile --tag ${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
-          docker tag ${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }} ${{inputs.AZ_CONTAINER_REGISTRY}}/${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
-          docker push ${{inputs.AZ_CONTAINER_REGISTRY}}/${{ github.event.repository.name }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
+          docker build . --file Dockerfile --tag ${{ inputs.APP_NAME }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
+          docker tag ${{ inputs.APP_NAME }}:${{ steps.json_properties.outputs.RELEASE_TAG }} ${{inputs.AZ_CONTAINER_REGISTRY}}/${{ inputs.APP_NAME }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
+          docker push ${{inputs.AZ_CONTAINER_REGISTRY}}/${{ inputs.APP_NAME }}:${{ steps.json_properties.outputs.RELEASE_TAG }}
  
