@@ -52,6 +52,6 @@ jobs:
             helm repo add azblob https://muzikzzacc.blob.core.windows.net/charts
             helm repo update
 
-            ls -lrt
+            ls -R
 
-            helm upgrade --install ${{inputs.APP_NAME}} azblob/${{inputs.APP_NAME}} --values ${{inputs.APP_NAME}}/values-global.yaml --values ${{inputs.APP_NAME}}/values-dev.yaml 
+            helm upgrade --install ${{inputs.APP_NAME}} azblob/${{inputs.APP_NAME}} --values ${{inputs.APP_NAME}}/values-dev.yaml 
