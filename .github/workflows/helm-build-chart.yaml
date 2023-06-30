@@ -21,6 +21,9 @@ on:
       APP_VERSION:
         required: true
         type: string
+    secrets:
+      AZURE_CREDENTIALS: 
+        required: true
 
 jobs:
   run-helm:
