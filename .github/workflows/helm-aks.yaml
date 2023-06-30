@@ -3,10 +3,10 @@ name: helm-deploy
 on:
   workflow_call:
     inputs:
-        HELM_TEMPLATE_REPO:
+        HELM_VALUES_REPO:
             required: true
             type: string
-        HELM_TEMPLATE_BRANCH:
+        HELM_VALUES_BRANCH:
             required: true
             type: string 
         AKS_RESOURCE_GROUP:
@@ -32,8 +32,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
-            repository: ${{inputs.HELM_TEMPLATE_REPO}} #brightza008/poc-helmchart@minikube
-            ref: ${{inputs.HELM_TEMPLATE_BRANCH}}
+            repository: ${{inputs.HELM_VALUES_REPO}} #brightza008/poc-helmchart@minikube
+            ref: ${{inputs.HELM_VALUES_BRANCH}}
       - run: |
           ls -R
           echo "Check env"
@@ -52,4 +52,6 @@ jobs:
             helm repo add azblob https://muzikzzacc.blob.core.windows.net/charts
             helm repo update
 
-            helm upgrade --install my-cherry-chart azblob/${{inputs.APP_NAME}} --values buildchart/values-global.yaml --values buildchart/values-dev.yaml 
+            ls -lrt
+
+            helm upgrade --install ${{inputs.APP_NAME}} azblob/${{inputs.APP_NAME}} --values ${{inputs.APP_NAME}}/values-global.yaml --values ${{inputs.APP_NAME}}/values-dev.yaml 
