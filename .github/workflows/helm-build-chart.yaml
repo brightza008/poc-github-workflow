@@ -49,9 +49,9 @@ jobs:
           ls -R
 
           #### Add helm metadata####
-          yq -i '.image.tag="${{inputs.APP_VERSION}}"'    ./${{inputs.APP_NAME}}/values-global.yaml
-          yq -i '.applicationName="${{inputs.APP_NAME}}"' ./${{inputs.APP_NAME}}/values-global.yaml
-          yq ./${{inputs.APP_NAME}}/values-global.yaml -o json
+          yq -i '.image.tag="${{inputs.APP_VERSION}}"'    ./${{inputs.APP_NAME}}/values.yaml
+          yq -i '.applicationName="${{inputs.APP_NAME}}"' ./${{inputs.APP_NAME}}/values.yaml
+          yq ./${{inputs.APP_NAME}}/values.yaml -o json
           yq -i '.name="${{inputs.APP_NAME}}"'            ./${{inputs.APP_NAME}}/Chart.yaml
           yq -i '.version="${{inputs.APP_VERSION}}"'      ./${{inputs.APP_NAME}}/Chart.yaml
           yq -i '.appVersion="${{inputs.APP_VERSION}}"'   ./${{inputs.APP_NAME}}/Chart.yaml
