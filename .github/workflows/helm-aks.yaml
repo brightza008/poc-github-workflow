@@ -9,10 +9,10 @@ on:
         HELM_TEMPLATE_BRANCH:
             required: true
             type: string 
-        AZ_RESOURCE_GROUP:
+        AKS_RESOURCE_GROUP:
             required: true
             type: string
-        AZ_AKS_NAME:
+        AKS_NAME:
             required: true
             type: string
         APP_NAME:
@@ -46,7 +46,7 @@ jobs:
       - name: Deploy TO AKS Cluster
         run: |
             echo "Set context k8s"
-            az aks get-credentials --resource-group ${{inputs.AZ_RESOURCE_GROUP}} --name ${{inputs.AZ_AKS_NAME}}
+            az aks get-credentials --resource-group ${{inputs.AKS_RESOURCE_GROUP}} --name ${{inputs.AKS_NAME}}
             kubectl get node
 
             helm repo add azblob https://muzikzzacc.blob.core.windows.net/charts
