@@ -21,6 +21,9 @@ on:
         APP_VERSION:
           required: true
           type: string
+        AZURE_STORAGE_ACC_NAME:
+          required: true
+          type: string
     secrets:
         AZURE_CREDENTIALS:
           required: true
@@ -49,8 +52,8 @@ jobs:
             az aks get-credentials --resource-group ${{inputs.AKS_RESOURCE_GROUP}} --name ${{inputs.AKS_NAME}}
             kubectl get node
 
-            helm repo add azblob https://muzikzzacc.blob.core.windows.net/charts
-            helm repo update
+            helm repo add azblob https://${{inputs.AZURE_STORAGE_ACC_NAME}}.blob.core.windows.net/charts
+            helm repo update 
 
             ls -R
 
