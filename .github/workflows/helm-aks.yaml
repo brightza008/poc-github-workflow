@@ -37,6 +37,7 @@ jobs:
         with:
             repository: ${{inputs.HELM_VALUES_REPO}} #helm values repo
             ref: ${{inputs.HELM_VALUES_BRANCH}}
+            token: ${{ secrets.PAT }}
       - run: |
           ls -R
           echo "Check env"
