@@ -27,7 +27,7 @@ on:
 
 jobs:
   run-helm:
-    runs-on: ubuntu-latest
+    runs-on: runner-default
 
     steps:
       - name: Checkout repository

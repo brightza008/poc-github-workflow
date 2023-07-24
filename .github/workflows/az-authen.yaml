@@ -8,7 +8,7 @@ on:
 
 jobs:
   setup-up-azure-resources:
-    runs-on: ubuntu-latest
+    runs-on: runner-default
     steps:
       - name: Azure login
         uses: azure/login@v1
