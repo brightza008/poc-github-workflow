@@ -41,8 +41,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
-            repository: ${{inputs.HELM_VALUES_REPO}} #helm values repo (MuZikZz-Org/Helm-Vaules)
-            ref: ${{inputs.HELM_VALUES_BRANCH}} #main
+            repository: ${{inputs.HELM_VALUES_REPO}} #helm values repo
+            ref: ${{inputs.HELM_VALUES_BRANCH}} 
             token: ${{ secrets.PAT }}
       - run: |
           ls -R
